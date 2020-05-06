@@ -1,9 +1,16 @@
 image: node:12.13.0
 
+before_script:
+  # Install yarn as outlined in (https://yarnpkg.com/lang/en/docs/install/#alternatives-stable)
+  - curl -o- -L https://yarnpkg.com/install.sh | bash
+  # Make available in the current terminal
+  - export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+
 cache:
   untracked: true
   paths:
     - node_modules/
+    - .yarn
 
 stages:
   - setup
@@ -14,7 +21,7 @@ stages:
 setup:
   stage: setup
   script:
-    - npm ci
+    - yarn install --frozen-lockfile
 
 # test:
 #   stage: test
@@ -23,10 +30,10 @@ setup:
 #   only:
 #     - master
 
-npmbuild:
+yarnbuild:
   stage: build
   script:
-    - npm run build
+    - yarn run build
   artifacts:
     paths:
       - dist
