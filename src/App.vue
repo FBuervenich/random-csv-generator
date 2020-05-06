@@ -14,7 +14,7 @@
         </v-row>
         <v-divider></v-divider>
         <v-row class="mt-5 mb-5">
-          <v-btn color="success">Export</v-btn>
+          <CsvExport />
         </v-row>
         <v-divider></v-divider>
       </v-container>
@@ -25,6 +25,7 @@
 <script>
 import CsvColumnList from '@/components/CsvColumnList';
 import CsvSettings from '@/components/CsvSettings.vue';
+import CsvExport from '@/components/CsvExport.vue';
 
 export default {
   name: 'App',
@@ -32,6 +33,7 @@ export default {
   components: {
     CsvColumnList,
     CsvSettings,
+    CsvExport,
   },
 
   data: () => ({

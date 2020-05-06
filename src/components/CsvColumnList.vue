@@ -18,12 +18,12 @@ export default {
   },
   data() {
     return {
-      columns: ['1', '2'],
+      columns: [1, 2],
     };
   },
   methods: {
     addColumn: function () {
-      this.columns.push('hallo');
+      this.columns.push(this.columns[this.columns.length - 1] + 1);
       // console.log(this.columns);
     },
     removeColumn: function (index) {

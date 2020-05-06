@@ -26,7 +26,9 @@ export default {
     CsvColumnTypeSelector,
   },
   props: {
-    columnName: String,
+    columnName: {
+      type: [String, Number],
+    },
   },
   methods: {
     removeColumn() {
