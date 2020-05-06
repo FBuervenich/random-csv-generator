@@ -10,6 +10,11 @@
       <v-col>
         <CsvColumnTypeSelector />
       </v-col>
+      <v-col>
+        <v-btn class="mx-2" fab dark x-small color="secondary" @click="removeColumn">
+          <v-icon dark>mdi-minus</v-icon>
+        </v-btn>
+      </v-col>
     </v-row>
   </div>
 </template>
@@ -22,6 +27,11 @@ export default {
   },
   props: {
     columnName: String,
+  },
+  methods: {
+    removeColumn() {
+      this.$emit('columnRemoved');
+    },
   },
 };
 </script>

@@ -1,6 +1,11 @@
 <template>
   <div>
-    <CsvColumn v-for="(column, index) in columns" :key="index" :columnName="column" />
+    <CsvColumn
+      v-for="(column, index) in columns"
+      :key="index"
+      :columnName="column"
+      @columnRemoved="removeColumn(index)"
+    />
     <v-btn @click="addColumn">Add Column</v-btn>
   </div>
 </template>
@@ -20,6 +25,9 @@ export default {
     addColumn: function () {
       this.columns.push('hallo');
       // console.log(this.columns);
+    },
+    removeColumn: function (index) {
+      this.columns.splice(index, 1);
     },
   },
 };
