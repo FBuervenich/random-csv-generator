@@ -50,10 +50,10 @@ deploy-dev:
   script:
     - curl -sSL https://get.docker.com/ | sh
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-    - docker pull registry.git.rwth-aachen.de/fbuervenich/random-csv-generator
+    - docker pull registry.git.rwth-aachen.de/fbuervenich.de/random-csv-generator
     - docker stop randomcsv.dev.fbuervenich.de || true
     - docker rm randomcsv.dev.fbuervenich.de || true
-    - docker run -d -e VIRTUAL_HOST=randomcsv.dev.fbuervenich.de -e LETSENCRYPT_HOST=randomcsv.dev.fbuervenich.de -e LETSENCRYPT_EMAIL=florentin@fbuervenich.de --network=production_docker-network --name randomcsv.dev.fbuervenich.de registry.git.rwth-aachen.de/fbuervenich/random-csv-generator
+    - docker run -d -e VIRTUAL_HOST=randomcsv.dev.fbuervenich.de -e LETSENCRYPT_HOST=randomcsv.dev.fbuervenich.de -e LETSENCRYPT_EMAIL=florentin@fbuervenich.de --network=production_docker-network --name randomcsv.dev.fbuervenich.de registry.git.rwth-aachen.de/fbuervenich.de/random-csv-generator
   # dependencies:
   #   -build
   only:
