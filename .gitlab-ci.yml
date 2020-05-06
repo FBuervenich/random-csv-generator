@@ -1,0 +1,61 @@
+image: node:12.13.0
+
+cache:
+  untracked: true
+  paths:
+    - node_modules/
+
+stages:
+  - setup
+  # - test
+  - build
+  - deploy
+
+setup:
+  stage: setup
+  script:
+    - npm ci
+  only:
+    - master
+
+# test:
+#   stage: test
+#   script:
+#     - npm run test:unit
+#   only:
+#     - master
+
+npmbuild:
+  stage: build
+  script:
+    - npm run build
+  artifacts:
+    paths:
+      - dist
+  only:
+    - master
+
+dockerbuild:
+  stage: build
+  image:
+    name: gcr.io/kaniko-project/executor:debug
+    entrypoint: [""]
+  script:
+    - echo "{\"auths\":{\"$CI_REGISTRY\":{\"username\":\"$CI_REGISTRY_USER\",\"password\":\"$CI_REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
+    - /kaniko/executor --context $CI_PROJECT_DIR --dockerfile $CI_PROJECT_DIR/Dockerfile --destination $CI_REGISTRY_IMAGE:$CI_COMMIT_TAG
+  only:
+    - master
+
+deploy-prod:
+  stage: deploy
+  script:
+    - curl -sSL https://get.docker.com/ | sh
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker pull registry.git.rwth-aachen.de/fbuervenich.de/felix
+    - docker stop felix.fbuervenich.de || true
+    - docker rm felix.fbuervenich.de || true
+    - docker run -d -e VIRTUAL_HOST=felix.fbuervenich.de -e LETSENCRYPT_HOST=felix.fbuervenich.de -e LETSENCRYPT_EMAIL=florentin@fbuervenich.de --network=production_docker-network --name felix.fbuervenich.de registry.git.rwth-aachen.de/fbuervenich.de/felix
+  # dependencies:
+  #   -build
+  only:
+    - master
