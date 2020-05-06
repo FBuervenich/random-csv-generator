@@ -1,7 +1,7 @@
 <template>
   <div>
-    <div v-for="(column, index) in columns" :key="index">{{ column }}</div>
-    <CsvColumn v-for="(column, index) in columns" :key="index" />
+    <CsvColumn v-for="(column, index) in columns" :key="index" :columnName="column" />
+    <v-btn @click="addColumn">Add Column</v-btn>
   </div>
 </template>
 
@@ -15,6 +15,12 @@ export default {
     return {
       columns: ['1', '2'],
     };
+  },
+  methods: {
+    addColumn: function () {
+      this.columns.push('hallo');
+      // console.log(this.columns);
+    },
   },
 };
 </script>
