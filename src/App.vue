@@ -1,13 +1,17 @@
 <template>
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png" />
+    <CsvColumnList />
   </div>
 </template>
 
 <script>
+import CsvColumnList from '@/components/CsvColumnList.vue';
 export default {
   name: 'App',
-  components: {},
+  components: {
+    CsvColumnList,
+  },
 };
 </script>
 
