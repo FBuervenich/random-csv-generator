@@ -46,15 +46,29 @@ dockerbuild:
   only:
     - master
 
+deploy-dev:
+  stage: deploy
+  script:
+    - curl -sSL https://get.docker.com/ | sh
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker pull registry.git.rwth-aachen.de/fbuervenich/random-csv-generator
+    - docker stop randomcsv.dev.fbuervenich.de || true
+    - docker rm randomcsv.dev.fbuervenich.de || true
+    - docker run -d -e VIRTUAL_HOST=randomcsv.dev.fbuervenich.de -e LETSENCRYPT_HOST=randomcsv.dev.fbuervenich.de -e LETSENCRYPT_EMAIL=florentin@fbuervenich.de --network=production_docker-network --name randomcsv.dev.fbuervenich.de registry.git.rwth-aachen.de/fbuervenich/random-csv-generator
+  # dependencies:
+  #   -build
+  only:
+    - develop
+
 deploy-prod:
   stage: deploy
   script:
     - curl -sSL https://get.docker.com/ | sh
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-    - docker pull registry.git.rwth-aachen.de/fbuervenich.de/felix
-    - docker stop felix.fbuervenich.de || true
-    - docker rm felix.fbuervenich.de || true
-    - docker run -d -e VIRTUAL_HOST=felix.fbuervenich.de -e LETSENCRYPT_HOST=felix.fbuervenich.de -e LETSENCRYPT_EMAIL=florentin@fbuervenich.de --network=production_docker-network --name felix.fbuervenich.de registry.git.rwth-aachen.de/fbuervenich.de/felix
+    - docker pull registry.git.rwth-aachen.de/fbuervenich.de/random-csv-generator
+    - docker stop randomcsv.fbuervenich.de || true
+    - docker rm randomcsv.fbuervenich.de || true
+    - docker run -d -e VIRTUAL_HOST=randomcsv.fbuervenich.de -e LETSENCRYPT_HOST=randomcsv.fbuervenich.de -e LETSENCRYPT_EMAIL=florentin@fbuervenich.de --network=production_docker-network --name randomcsv.fbuervenich.de registry.git.rwth-aachen.de/fbuervenich.de/random-csv-generator
   # dependencies:
   #   -build
   only:
