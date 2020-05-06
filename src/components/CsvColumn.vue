@@ -5,7 +5,7 @@
         <span>{{ columnName }}</span>
       </v-col>
       <v-col>
-        <v-text-field label="Enter field name..."></v-text-field>
+        <v-text-field label="Enter field name..." outlined></v-text-field>
       </v-col>
       <v-col>
         <CsvColumnTypeSelector />

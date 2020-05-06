@@ -5,9 +5,18 @@
     </v-app-bar>
     <v-content>
       <v-container>
-        <v-row>
+        <v-row class="mb-5">
           <CsvColumnList />
         </v-row>
+        <v-divider></v-divider>
+        <v-row>
+          <CsvSettings />
+        </v-row>
+        <v-divider></v-divider>
+        <v-row class="mt-5 mb-5">
+          <v-btn color="success">Export</v-btn>
+        </v-row>
+        <v-divider></v-divider>
       </v-container>
     </v-content>
   </v-app>
@@ -15,12 +24,14 @@
 
 <script>
 import CsvColumnList from '@/components/CsvColumnList';
+import CsvSettings from '@/components/CsvSettings.vue';
 
 export default {
   name: 'App',
 
   components: {
     CsvColumnList,
+    CsvSettings,
   },
 
   data: () => ({
