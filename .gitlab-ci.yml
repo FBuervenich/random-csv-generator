@@ -1,11 +1,5 @@
 image: node:12.13.0
 
-# before_script:
-#   # Install yarn as outlined in (https://yarnpkg.com/lang/en/docs/install/#alternatives-stable)
-#   - curl -o- -L https://yarnpkg.com/install.sh | bash
-#   # Make available in the current terminal
-#   - export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
-
 cache:
   untracked: true
   paths:
@@ -46,7 +40,7 @@ dockerbuild:
   stage: build
   image:
     name: gcr.io/kaniko-project/executor:debug
-    entrypoint: ['/bin/bash']
+    entrypoint: ['']
   script:
     - echo "{\"auths\":{\"$CI_REGISTRY\":{\"username\":\"$CI_REGISTRY_USER\",\"password\":\"$CI_REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
     - /kaniko/executor --context $CI_PROJECT_DIR --dockerfile $CI_PROJECT_DIR/Dockerfile --destination $CI_REGISTRY_IMAGE:$CI_COMMIT_TAG
