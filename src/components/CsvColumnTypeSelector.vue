@@ -9,11 +9,8 @@
         <v-card-title class="headline grey lighten-2" primary-title>
           Select column type
         </v-card-title>
-
         <v-card-text></v-card-text>
-
         <v-divider></v-divider>
-
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="primary" text @click="dialog = false">

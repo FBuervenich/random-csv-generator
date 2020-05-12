@@ -1,11 +1,13 @@
 <template>
   <div>
-    <CsvColumn
-      v-for="(column, index) in columns"
-      :key="index"
-      :columnName="column"
-      @columnRemoved="removeColumn(index)"
-    />
+    <transition-group name="list" tag="div">
+      <CsvColumn
+        v-for="(column, index) in columns"
+        :key="column"
+        :columnName="column"
+        @columnRemoved="removeColumn(index)"
+      />
+    </transition-group>
     <v-btn @click="addColumn">Add Column</v-btn>
   </div>
 </template>
