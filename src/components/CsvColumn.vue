@@ -1,8 +1,9 @@
 <template>
   <div>
     <v-row>
+      {{ columnType }}
       <v-col align="center">
-        <span>{{ columnName }}</span>
+        <span>{{ this.columnType.name }}</span>
       </v-col>
       <v-col>
         <v-text-field label="Enter field name..." outlined></v-text-field>
@@ -21,18 +22,25 @@
 
 <script>
 import CsvColumnTypeSelector from '@/components/CsvColumnTypeSelector.vue';
+import { BaseColumnType } from '@/features/column_type.js';
 export default {
   components: {
     CsvColumnTypeSelector,
   },
   props: {
-    columnName: {
-      type: [String, Number],
-    },
+    columnType: {},
   },
   methods: {
     removeColumn() {
       this.$emit('columnRemoved');
+    },
+    getColumnName: function () {
+      return this.columnType.name;
+    },
+  },
+  computed: {
+    columnName: function () {
+      return this.columnType.name;
     },
   },
 };

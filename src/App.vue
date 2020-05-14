@@ -39,8 +39,6 @@ export default {
   data: () => ({
     //
   }),
-
-  props: {},
 };
 </script>
 
