@@ -7,10 +7,8 @@
         :columnType="columnType"
         @columnRemoved="removeColumn(index)"
         @columnTypeChanged="updateColumnType($event, index)"
-        :test="test"
       />
     </transition-group>
-    <v-btn @click="addColumn">Add Column</v-btn>
   </div>
 </template>
 
@@ -25,9 +23,6 @@ export default {
   data() {
     return {
       columns: [],
-      test: {
-        hallo: 'hallo1',
-      },
     };
   },
   methods: {
@@ -38,14 +33,13 @@ export default {
       this.columns.splice(index, 1);
     },
     updateColumnType: function (columnType, id) {
-      this.columns[id] = columnType;
-      this.test['test2'] = 'lalala';
+      // replace the item with splice() because vue cannot observe the change otherwise
+      this.columns.splice(id, 1, columnType);
     },
   },
   created() {
     this.columns.push(new NumberColumnType());
     this.columns.push(new NumberColumnType());
-    this.columns[0] = { hallo: 'ja' };
   },
 };
 </script>

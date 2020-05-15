@@ -58,6 +58,7 @@ export default {
       this.dialog = false;
       // pass a new object up so the pointer on the current is not used multiple times
       this.$parent.$emit('columnTypeChanged', columnType.constructor());
+      this.columnType = columnType.getName();
     },
   },
 };

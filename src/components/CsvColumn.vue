@@ -1,7 +1,6 @@
 <template>
   <div>
     <v-row>
-      {{ columnType }}
       <v-col align="center">
         <span>{{ this.columnType.name }}</span>
       </v-col>
