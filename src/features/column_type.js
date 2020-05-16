@@ -1,3 +1,5 @@
+import { Util } from '@/features/util';
+
 /**
  * Base class for column types
  */
@@ -7,6 +9,8 @@ export class BaseColumnType {
 
     // use its type as the initial name for a column
     this.name = identifier;
+
+    this.uuid = Util.generateUUID();
   }
 
   setName(name) {
@@ -18,6 +22,10 @@ export class BaseColumnType {
    */
   getName() {
     return this.name;
+  }
+
+  getUUID() {
+    return this.uuid;
   }
 
   /**

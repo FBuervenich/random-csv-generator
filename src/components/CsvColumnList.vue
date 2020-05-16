@@ -2,44 +2,41 @@
   <div>
     <transition-group name="list" tag="div">
       <CsvColumn
-        v-for="(columnType, index) in columns"
-        :key="index"
+        v-for="columnType in column.columns"
+        :key="columnType.getUUID()"
         :columnType="columnType"
-        @columnRemoved="removeColumn(index)"
-        @columnTypeChanged="updateColumnType($event, index)"
+        @columnRemoved="removeColumn(columnType.getUUID())"
+        @columnTypeChanged="setColumn($event, columnType.getUUID())"
       />
     </transition-group>
+    <v-btn @click="addDefaultColumn">Add Column</v-btn>
   </div>
 </template>
 
 <script>
 import CsvColumn from '@/components/CsvColumn.vue';
 import { NumberColumnType } from '@/features/column_type';
+import { mapState, mapActions } from 'vuex';
 
 export default {
   components: {
     CsvColumn,
   },
   data() {
-    return {
-      columns: [],
-    };
+    return {};
   },
   methods: {
-    addColumn: function () {
-      this.columns.push(new NumberColumnType());
+    addDefaultColumn: function () {
+      this.addColumn(new NumberColumnType());
     },
-    removeColumn: function (index) {
-      this.columns.splice(index, 1);
-    },
-    updateColumnType: function (columnType, id) {
-      // replace the item with splice() because vue cannot observe the change otherwise
-      this.columns.splice(id, 1, columnType);
-    },
+    ...mapActions('column', ['addColumn', 'setColumn', 'setColumnName', 'removeColumn']),
   },
   created() {
-    this.columns.push(new NumberColumnType());
-    this.columns.push(new NumberColumnType());
+    this.addDefaultColumn();
+    this.addDefaultColumn();
+  },
+  computed: {
+    ...mapState(['column']),
   },
 };
 </script>

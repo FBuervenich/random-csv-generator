@@ -38,8 +38,11 @@ export default {
     },
   },
   computed: {
-    columnName: function () {
+    columnName() {
       return this.columnType.name;
+    },
+    columnUUID() {
+      return columnType.getUUID();
     },
   },
 };
