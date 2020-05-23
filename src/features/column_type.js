@@ -24,10 +24,6 @@ export class BaseColumnType {
     return this.name;
   }
 
-  getUUID() {
-    return this.uuid;
-  }
-
   /**
    * Returns a description of the column type
    */
@@ -63,7 +59,7 @@ export class NumberColumnType extends BaseColumnType {
   }
 
   getDescription() {
-    return 'A number test';
+    return 'A number';
   }
 
   getExamples() {

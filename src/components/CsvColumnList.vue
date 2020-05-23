@@ -3,10 +3,10 @@
     <transition-group name="list" tag="div">
       <CsvColumn
         v-for="columnType in column.columns"
-        :key="columnType.getUUID()"
+        :key="columnType.uuid"
         :columnType="columnType"
-        @columnRemoved="removeColumn(columnType.getUUID())"
-        @columnTypeChanged="setColumn($event, columnType.getUUID())"
+        @columnRemoved="removeColumn(columnType.uuid)"
+        @columnTypeChanged="updateColumnType($event)"
       />
     </transition-group>
     <v-btn @click="addDefaultColumn">Add Column</v-btn>
@@ -28,6 +28,9 @@ export default {
   methods: {
     addDefaultColumn: function () {
       this.addColumn(new NumberColumnType());
+    },
+    updateColumnType(event) {
+      this.setColumn({ uuid: event.uuid, payload: event.columnType });
     },
     ...mapActions('column', ['addColumn', 'setColumn', 'setColumnName', 'removeColumn']),
   },

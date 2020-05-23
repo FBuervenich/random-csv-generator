@@ -1,11 +1,32 @@
 <template>
   <div>
-    <v-btn color="success">Export</v-btn>
+    <v-btn @click="initGeneration" color="success">Export</v-btn>
+    <!-- <a ref="startDownload" download="export.csv" :href="uri" class="hidden">test</a> -->
   </div>
 </template>
 
 <script>
-export default {};
+import { mapState } from 'vuex';
+import { CSVDownloader } from '@/features/csv_downloader';
+export default {
+  data() {
+    return {
+      uri: '',
+    };
+  },
+  computed: {
+    ...mapState(['column']),
+  },
+  methods: {
+    initGeneration() {
+      new CSVDownloader().generateAndDownload();
+    },
+  },
+};
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.hidden {
+  display: none;
+}
+</style>

@@ -8,7 +8,7 @@
         <v-text-field label="Enter field name..." outlined></v-text-field>
       </v-col>
       <v-col>
-        <CsvColumnTypeSelector />
+        <CsvColumnTypeSelector :columnType="columnType" />
       </v-col>
       <v-col>
         <v-btn class="mx-2" fab dark x-small color="secondary" @click="removeColumn">
@@ -42,7 +42,7 @@ export default {
       return this.columnType.name;
     },
     columnUUID() {
-      return columnType.getUUID();
+      return columnType.uuid;
     },
   },
 };

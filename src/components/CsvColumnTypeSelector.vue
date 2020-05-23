@@ -2,7 +2,7 @@
   <div>
     <v-dialog v-model="dialog" width="500" scrollable>
       <template v-slot:activator="{ on }">
-        <v-btn v-on="on">{{ columnType }}</v-btn>
+        <v-btn v-on="on">{{ columnType.name }}</v-btn>
       </template>
 
       <v-card>
@@ -13,14 +13,14 @@
           <v-container>
             <v-row>
               <v-col
-                v-for="(columnType, index) in allowedColumnTypes"
+                v-for="(currColumnType, index) in allowedColumnTypes"
                 :key="index"
-                @click="selectColumnType(columnType)"
+                @click="selectColumnType(currColumnType)"
                 class="columnTypeSelector"
                 cols="6"
               >
-                <h3>{{ columnType.getName() }}</h3>
-                <span>{{ columnType.getDescription() }}</span>
+                <h3>{{ currColumnType.getName() }}</h3>
+                <span>{{ currColumnType.getDescription() }}</span>
               </v-col>
             </v-row>
           </v-container>
@@ -29,7 +29,7 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="primary" text @click="dialog = false">
-            Select
+            Cancel
           </v-btn>
         </v-card-actions>
       </v-card>
@@ -46,19 +46,21 @@ import {
 } from '@/features/column_type';
 
 export default {
+  props: ['columnType'],
   data() {
     return {
-      columnType: 'Number',
       dialog: false,
       allowedColumnTypes: [new NumberColumnType(), new BlankColumnType(), new BooleanColumnType()],
     };
   },
   methods: {
-    selectColumnType: function (columnType) {
+    selectColumnType: function (newColumnType) {
       this.dialog = false;
       // pass a new object up so the pointer on the current is not used multiple times
-      this.$parent.$emit('columnTypeChanged', columnType.constructor());
-      this.columnType = columnType.getName();
+      this.$parent.$emit('columnTypeChanged', {
+        uuid: this.columnType.uuid,
+        columnType: newColumnType.constructor(),
+      });
     },
   },
 };
