@@ -41,7 +41,6 @@
 
 <script>
 import {
-  BaseColumnType,
   NumberColumnType,
   BlankColumnType,
   BooleanColumnType,

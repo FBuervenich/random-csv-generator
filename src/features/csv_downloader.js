@@ -4,10 +4,6 @@ import GeneratorWorker from '@/features/webworkers/csv_generator.worker';
 export class CSVDownloader {
   constructor() {}
 
-  generateAndDownload() {
-    const content = this.generateContent();
-  }
-
   downloadContent(content) {
     const link = document.createElement('a');
     link.href = content;
@@ -16,7 +12,7 @@ export class CSVDownloader {
     URL.revokeObjectURL(link.href);
   }
 
-  generateContent() {
+  generateAndDownload() {
     console.log(store.getters);
 
     const columns = store.getters['column/getColumns'];

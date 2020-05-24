@@ -35,6 +35,8 @@
 </template>
 
 <script>
+// /* global GIT_DESCRIBE */
+
 import CsvColumnList from '@/components/CsvColumnList';
 import CsvSettings from '@/components/CsvSettings.vue';
 import CsvExport from '@/components/CsvExport.vue';

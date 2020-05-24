@@ -21,7 +21,6 @@
 
 <script>
 import CsvColumnTypeSelector from '@/components/CsvColumnTypeSelector.vue';
-import { BaseColumnType } from '@/features/column_type.js';
 export default {
   components: {
     CsvColumnTypeSelector,

@@ -8,12 +8,12 @@ onmessage = function (e) {
 };
 
 function doWork(job, options) {
+  let result = [];
+  const columns = options.columns || [];
+  const exportOptions = options.options || { rows: 100 };
+
   switch (job) {
     case 'defaultCSV':
-      let result = [];
-      const columns = options.columns || [];
-      const exportOptions = options.options || { rows: 100 };
-
       // set "getNextValue()" because functions get lost when sending the columns to the worker thread
       columns.forEach((column) => {
         const columnClass = ColumnTypeRouter.getClass(column.identifier);
