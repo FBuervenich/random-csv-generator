@@ -14,7 +14,7 @@ function doWork(job, options) {
       const columns = options.columns || [];
       const exportOptions = options.options || { rows: 100 };
 
-      // set "getNextValue()" method for the columns
+      // set "getNextValue()" because functions get lost when sending the columns to the worker thread
       columns.forEach((column) => {
         const columnClass = ColumnTypeRouter.getClass(column.identifier);
         column.getNextValue = new columnClass().getNextValue;
