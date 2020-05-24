@@ -1,5 +1,20 @@
 import { Util } from '@/features/util';
 
+export class ColumnTypeRouter {
+  static getClass(identifier) {
+    switch (identifier) {
+      case 'Blank':
+        return BlankColumnType;
+      case 'Number':
+        return NumberColumnType;
+      case 'Boolean':
+        return BooleanColumnType;
+      default:
+        break;
+    }
+  }
+}
+
 /**
  * Base class for column types
  */
@@ -68,7 +83,7 @@ export class NumberColumnType extends BaseColumnType {
 
   getNextValue() {
     let delta = this.max - this.min;
-    let val = Math.random() * this.delta + this.min;
+    let val = Math.random() * delta + this.min;
     return val.toFixed(this.decimals);
   }
 }
@@ -94,5 +109,14 @@ export class BooleanColumnType extends BaseColumnType {
 
   getDescription() {
     return 'A boolean value (true or false)';
+  }
+
+  getExamples() {
+    return [true, false];
+  }
+
+  getNextValue() {
+    const ret = Math.random() >= 0.5;
+    return ret;
   }
 }

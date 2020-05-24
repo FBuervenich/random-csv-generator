@@ -26,7 +26,7 @@ export class CSVDownloader {
     const options = {
       columns,
       options: {
-        rows: 100,
+        rows: store.getters['rowCount'],
       },
     };
 

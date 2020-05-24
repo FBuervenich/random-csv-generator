@@ -2,7 +2,13 @@
   <div>
     <v-row>
       <v-col>
-        <v-text-field label="# Rows" v-model="rowCount" type="number" outlined></v-text-field>
+        <v-text-field
+          label="# Rows"
+          :value="rowCount"
+          @input="updateRowCount"
+          type="number"
+          outlined
+        ></v-text-field>
       </v-col>
       <v-col>
         <v-select label="Format" :items="fileTypes" outlined></v-select>
@@ -15,13 +21,24 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
+
 export default {
   data() {
     return {
-      rowCount: 1000,
       fileTypes: ['.csv'],
       includeHeader: true,
     };
+  },
+  computed: {
+    ...mapState({
+      rowCount: (state) => state.settings.rowCount,
+    }),
+  },
+  methods: {
+    updateRowCount(val) {
+      this.$store.commit('UPDATE_ROWCOUNT', val);
+    },
   },
 };
 </script>

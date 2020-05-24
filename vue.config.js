@@ -1,13 +1,11 @@
 module.exports = {
   transpileDependencies: ['vuetify'],
-  configureWebpack: {
-    module: {
-      rules: [
-        {
-          test: /\.worker\.js$/,
-          use: { loader: 'worker-loader' },
-        },
-      ],
-    },
+  chainWebpack: (config) => {
+    config.module
+      .rule('webWorker')
+      .post()
+      .test(/\.worker\.(j|t)s$/)
+      .use('worker-loader')
+      .loader('worker-loader');
   },
 };
