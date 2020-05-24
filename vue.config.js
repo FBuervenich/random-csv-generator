@@ -1,3 +1,5 @@
+process.env.VUE_APP_VERSION = require('./package.json').version;
+
 module.exports = {
   transpileDependencies: ['vuetify'],
 
@@ -9,6 +11,8 @@ module.exports = {
       .use('worker-loader')
       .loader('worker-loader');
   },
+
+  configureWebpack: {},
 
   pluginOptions: {
     gitDescribe: {

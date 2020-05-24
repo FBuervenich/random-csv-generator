@@ -50,7 +50,7 @@ export default {
 
   data() {
     return {
-      projectVersion: GIT_DESCRIBE.semver.version,
+      projectVersion: process.env.VUE_APP_VERSION,
       commitHash: GIT_DESCRIBE.hash,
     };
   },
