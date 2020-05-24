@@ -9,8 +9,10 @@ export class ColumnTypeRouter {
         return NumberColumnType;
       case 'Boolean':
         return BooleanColumnType;
+      case 'String':
+        return StringColumnType;
       default:
-        break;
+        return BaseColumnType;
     }
   }
 }
@@ -118,5 +120,30 @@ export class BooleanColumnType extends BaseColumnType {
   getNextValue() {
     const ret = Math.random() >= 0.5;
     return ret;
+  }
+}
+
+export class StringColumnType extends BaseColumnType {
+  constructor(amountCharacters = 20) {
+    super('String');
+    this.amountCharacters = amountCharacters;
+  }
+
+  getDescription() {
+    return 'A string value';
+  }
+
+  getExamples() {
+    return ['o6Pr5c1f6Ur0IG7YeIH9', 'sGkGjU3ceisKZU4D79FJ', '1FteBUVKxk6WRVb84VGL'];
+  }
+
+  getNextValue() {
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    const length = characters.length;
+    const ret = [];
+    for (let i = 0; i < this.amountCharacters; i++) {
+      ret.push(characters.charAt(Math.floor(Math.random() * length)));
+    }
+    return ret.join('');
   }
 }

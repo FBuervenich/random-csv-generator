@@ -21,6 +21,8 @@
               >
                 <h3>{{ currColumnType.identifier }}</h3>
                 <span>{{ currColumnType.getDescription() }}</span>
+                <br />
+                <span>Example(s): {{ currColumnType.getExamples().join(', ') }}</span>
               </v-col>
             </v-row>
           </v-container>
@@ -43,6 +45,7 @@ import {
   NumberColumnType,
   BlankColumnType,
   BooleanColumnType,
+  StringColumnType,
 } from '@/features/column_type';
 
 export default {
@@ -50,7 +53,12 @@ export default {
   data() {
     return {
       dialog: false,
-      allowedColumnTypes: [new NumberColumnType(), new BlankColumnType(), new BooleanColumnType()],
+      allowedColumnTypes: [
+        new NumberColumnType(),
+        new BlankColumnType(),
+        new BooleanColumnType(),
+        new StringColumnType(),
+      ],
     };
   },
   methods: {
