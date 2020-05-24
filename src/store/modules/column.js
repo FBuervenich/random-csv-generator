@@ -23,18 +23,13 @@ export const mutations = {
   REMOVE_COLUMN(state, uuid) {
     state.columns = state.columns.filter((column) => column.uuid !== uuid);
   },
-  SET_COLUMN(state, { uuid, payload }) {
-    let id = getters.getColumnIndex(state)(uuid);
-    if (id != -1) {
-      // replace the item with splice() because vue cannot observe the change otherwise
-      state.columns.splice(id, 1, payload);
-    }
+  SET_COLUMN(state, { id, payload }) {
+    // replace the item with splice() because vue cannot observe the change otherwise
+    state.columns.splice(id, 1, payload);
   },
-  SET_COLUMN_NAME(state, { uuid, newName }) {
-    let id = getters.getColumnIndex(state, uuid);
-    if (id != -1) {
-      this.$set(state.columns[id], 'name', newName);
-    }
+  SET_COLUMN_NAME(state, { id, newName }) {
+    // this.$set(state.columns[id], 'name', newName);
+    state.columns[id].name = newName;
   },
 };
 
@@ -45,10 +40,16 @@ export const actions = {
   removeColumn({ commit }, id) {
     commit('REMOVE_COLUMN', id);
   },
-  setColumn({ commit }, { uuid, payload }) {
-    commit('SET_COLUMN', { uuid, payload });
+  setColumn({ commit, getters }, { uuid, payload }) {
+    const id = getters.getColumnIndex(uuid);
+    if (id != -1) {
+      commit('SET_COLUMN', { id, payload });
+    }
   },
-  setColumnName({ commit }, { uuid, newName }) {
-    commit('SET_COLUMN_NAME', { uuid, newName });
+  setColumnName({ commit, getters }, { uuid, newName }) {
+    const id = getters.getColumnIndex(uuid);
+    if (id != -1) {
+      commit('SET_COLUMN_NAME', { id, newName });
+    }
   },
 };

@@ -27,10 +27,17 @@ export default {
   data() {
     return {
       fileTypes: ['.csv'],
-      includeHeader: true,
     };
   },
   computed: {
+    includeHeader: {
+      get() {
+        return this.$store.getters.includeHeader;
+      },
+      set(val) {
+        this.$store.commit('UPDATE_INCLUDEHEADER', val);
+      },
+    },
     ...mapState({
       rowCount: (state) => state.settings.rowCount,
     }),
@@ -38,6 +45,9 @@ export default {
   methods: {
     updateRowCount(val) {
       this.$store.commit('UPDATE_ROWCOUNT', val);
+    },
+    updateIncludeHeader(val) {
+      this.$store.commit('UPDATE_INCLUDEHEADER', val);
     },
   },
 };

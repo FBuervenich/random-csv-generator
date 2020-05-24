@@ -2,7 +2,7 @@
   <div>
     <v-dialog v-model="dialog" width="500" scrollable>
       <template v-slot:activator="{ on }">
-        <v-btn v-on="on">{{ columnType.name }}</v-btn>
+        <v-btn v-on="on">{{ columnType.identifier }}</v-btn>
       </template>
 
       <v-card>
@@ -19,7 +19,7 @@
                 class="columnTypeSelector"
                 cols="6"
               >
-                <h3>{{ currColumnType.getName() }}</h3>
+                <h3>{{ currColumnType.identifier }}</h3>
                 <span>{{ currColumnType.getDescription() }}</span>
               </v-col>
             </v-row>

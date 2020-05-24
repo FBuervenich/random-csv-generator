@@ -6,8 +6,6 @@ export class CSVDownloader {
 
   generateAndDownload() {
     const content = this.generateContent();
-    // let rows = ['hallo;was;geht?'];
-    // const content = rows.join('\n');
   }
 
   downloadContent(content) {
@@ -32,7 +30,13 @@ export class CSVDownloader {
 
     let worker = new GeneratorWorker();
     worker.addEventListener('message', (event) => {
-      const data = event.data;
+      let data = event.data;
+
+      const includeHeader = store.getters['includeHeader'];
+      if (includeHeader) {
+        const header = store.getters['column/getColumns'].map((column) => column.name).join(';');
+        data = header + '\n' + data;
+      }
 
       const uriContent = 'data:text/csv;charset=utf-8,' + data;
 

@@ -1,11 +1,11 @@
 <template>
   <div>
     <v-row>
-      <v-col align="center">
+      <!-- <v-col align="center">
         <span>{{ this.columnType.name }}</span>
-      </v-col>
+      </v-col> -->
       <v-col>
-        <v-text-field label="Enter field name..." outlined></v-text-field>
+        <v-text-field v-model="columnName" label="Enter column name..." outlined></v-text-field>
       </v-col>
       <v-col>
         <CsvColumnTypeSelector :columnType="columnType" />
@@ -33,16 +33,18 @@ export default {
     removeColumn() {
       this.$emit('columnRemoved');
     },
-    getColumnName: function () {
-      return this.columnType.name;
-    },
   },
   computed: {
-    columnName() {
-      return this.columnType.name;
+    columnName: {
+      get() {
+        return this.columnType.name;
+      },
+      set(value) {
+        this.$store.dispatch('column/setColumnName', { uuid: this.columnUUID, newName: value });
+      },
     },
     columnUUID() {
-      return columnType.uuid;
+      return this.columnType.uuid;
     },
   },
 };
