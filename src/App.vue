@@ -2,6 +2,9 @@
   <v-app id="inspire">
     <v-app-bar app color="indigo" dark>
       <v-toolbar-title>CSV Generator</v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-icon>mdi-flare</v-icon>
+      <span class="ml-2">{{ commitHash }}</span>
     </v-app-bar>
     <v-content>
       <v-container>
@@ -36,9 +39,14 @@ export default {
     CsvExport,
   },
 
-  data: () => ({
-    //
-  }),
+  data() {
+    return {
+      commitHash: '',
+    };
+  },
+  created() {
+    this.commitHash = GIT_DESCRIBE;
+  },
 };
 </script>
 
