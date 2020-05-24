@@ -38,7 +38,8 @@ export class CSVDownloader {
         data = header + '\n' + data;
       }
 
-      const uriContent = 'data:text/csv;charset=utf-8,' + data;
+      const uriContent = 'data:text/plain;charset=utf-8,' + encodeURI(data);
+      // const uriContent = encodeURI(data);
 
       this.downloadContent(uriContent);
     });
