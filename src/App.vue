@@ -3,8 +3,17 @@
     <v-app-bar app color="indigo" dark>
       <v-toolbar-title>CSV Generator</v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-icon>mdi-flare</v-icon>
-      <span class="ml-2">{{ commitHash }}</span>
+      <v-icon>mdi-source-branch</v-icon>
+      <div class="ml-2">
+        <div>
+          <span class="mr-2">Version:</span>
+          <span class="font-weight-bold">{{ projectVersion }}</span>
+        </div>
+        <div>
+          <span class="mr-2">Release:</span>
+          <span class="font-weight-bold">{{ commitHash }}</span>
+        </div>
+      </div>
     </v-app-bar>
     <v-content>
       <v-container>
@@ -41,12 +50,11 @@ export default {
 
   data() {
     return {
-      commitHash: '',
+      projectVersion: GIT_DESCRIBE.semver.version,
+      commitHash: GIT_DESCRIBE.hash,
     };
   },
-  created() {
-    this.commitHash = GIT_DESCRIBE;
-  },
+  created() {},
 };
 </script>
 

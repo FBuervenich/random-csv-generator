@@ -1,8 +1,3 @@
-// const { gitDescribe, gitDescribeSync } = require('git-describe');
-
-// // make current commit hash publicly available
-// process.env.VUE_APP_GIT_HASH = gitDescribeSync().hash;
-
 module.exports = {
   transpileDependencies: ['vuetify'],
 
