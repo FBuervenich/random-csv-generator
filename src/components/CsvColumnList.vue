@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <v-container>
     <transition-group name="list" tag="div">
       <CsvColumn
         v-for="columnType in column.columns"
@@ -10,7 +10,7 @@
       />
     </transition-group>
     <v-btn @click="addDefaultColumn">Add Column</v-btn>
-  </div>
+  </v-container>
 </template>
 
 <script>
