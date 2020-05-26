@@ -13,8 +13,6 @@ export class CSVDownloader {
   }
 
   generateAndDownload() {
-    console.log(store.getters);
-
     const columns = store.getters['column/getColumns'];
 
     const options = {

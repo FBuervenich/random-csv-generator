@@ -56,6 +56,13 @@ export class BaseColumnType {
   }
 
   /**
+   * Returns the settings component responsible for the column type
+   */
+  get columnSettingsComponent() {
+    return 'NoColumnSettings';
+  }
+
+  /**
    * Returns a random value for the column type
    */
   getNextValue() {
@@ -81,6 +88,10 @@ export class NumberColumnType extends BaseColumnType {
 
   getExamples() {
     return [3, 532, 7.56343, 748393];
+  }
+
+  get columnSettingsComponent() {
+    return 'NumberColumnSettings';
   }
 
   getNextValue() {
@@ -135,6 +146,10 @@ export class StringColumnType extends BaseColumnType {
 
   getExamples() {
     return ['o6Pr5c1f6Ur0IG7YeIH9', 'sGkGjU3ceisKZU4D79FJ', '1FteBUVKxk6WRVb84VGL'];
+  }
+
+  get columnSettingsComponent() {
+    return 'StringColumnSettings';
   }
 
   getNextValue() {

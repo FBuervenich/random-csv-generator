@@ -28,8 +28,10 @@ export const mutations = {
     state.columns.splice(id, 1, payload);
   },
   SET_COLUMN_NAME(state, { id, newName }) {
-    // this.$set(state.columns[id], 'name', newName);
     state.columns[id].name = newName;
+  },
+  SET_COLUMN_SETTING(state, { id, key, value }) {
+    state.columns[id][key] = value;
   },
 };
 
@@ -50,6 +52,12 @@ export const actions = {
     const id = getters.getColumnIndex(uuid);
     if (id != -1) {
       commit('SET_COLUMN_NAME', { id, newName });
+    }
+  },
+  setColumnSetting({ commit, getters }, { uuid, key, value }) {
+    const id = getters.getColumnIndex(uuid);
+    if (id != -1) {
+      commit('SET_COLUMN_SETTING', { uuid, key, value });
     }
   },
 };
