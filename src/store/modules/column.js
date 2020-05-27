@@ -57,7 +57,7 @@ export const actions = {
   setColumnSetting({ commit, getters }, { uuid, key, value }) {
     const id = getters.getColumnIndex(uuid);
     if (id != -1) {
-      commit('SET_COLUMN_SETTING', { uuid, key, value });
+      commit('SET_COLUMN_SETTING', { id, key, value });
     }
   },
 };

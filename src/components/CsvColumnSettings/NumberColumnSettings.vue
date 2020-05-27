@@ -1,7 +1,7 @@
 <template>
   <div class="d-flex">
     <v-text-field
-      @input="updateColumnProperty('min', $event.target.value)"
+      @input="updateColumnProperty('min', $event)"
       class="mx-1"
       type="number"
       label="min"
@@ -9,7 +9,7 @@
       outlined
     ></v-text-field>
     <v-text-field
-      @input="updateColumnProperty('max', $event.target.value)"
+      @input="updateColumnProperty('max', $event)"
       class="mx-1"
       type="number"
       label="max"
@@ -17,7 +17,7 @@
       outlined
     ></v-text-field>
     <v-text-field
-      @input="updateColumnProperty('decimals', $event.target.value)"
+      @input="updateColumnProperty('decimals', $event)"
       class="mx-1"
       type="number"
       label="decimals"

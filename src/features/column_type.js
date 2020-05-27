@@ -96,7 +96,7 @@ export class NumberColumnType extends BaseColumnType {
 
   getNextValue() {
     let delta = this.max - this.min;
-    let val = Math.random() * delta + this.min;
+    let val = Math.random() * delta + parseInt(this.min);
     return val.toFixed(this.decimals);
   }
 }

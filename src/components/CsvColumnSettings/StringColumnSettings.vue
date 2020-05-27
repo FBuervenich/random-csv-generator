@@ -1,6 +1,7 @@
 <template>
   <div class="d-flex">
     <v-text-field
+      @input="updateColumnProperty('amountCharacters', $event)"
       class="mx-1"
       type="number"
       label="length"
@@ -12,8 +13,10 @@
 
 <script>
 import { StringColumnType } from '@/features/column_type';
+import ColumnSettingsMixin from '@/components/CsvColumnSettings/ColumnSettingsMixin';
 
 export default {
+  mixins: [ColumnSettingsMixin],
   data() {
     return {
       length: new StringColumnType().amountCharacters,

@@ -11,7 +11,10 @@
         <CsvColumnTypeSelector :columnType="columnType" />
       </v-col>
       <v-col cols="5">
-        <Component v-bind:is="columnType.columnSettingsComponent"></Component>
+        <Component
+          v-bind:is="columnType.columnSettingsComponent"
+          :uuid="this.columnType.uuid"
+        ></Component>
       </v-col>
       <v-col cols="1">
         <v-btn class="mx-2" fab dark x-small color="secondary" @click="removeColumn">
