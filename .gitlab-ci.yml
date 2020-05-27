@@ -4,6 +4,7 @@ cache:
   untracked: true
   paths:
     - node_modules/
+    - .yarn
 
 stages:
   - setup
@@ -14,9 +15,11 @@ stages:
 setup:
   stage: setup
   script:
-    - npm ci
-  only:
-    - master
+    # Install yarn as outlined in (https://yarnpkg.com/lang/en/docs/install/#alternatives-stable)
+    - curl -o- -L https://yarnpkg.com/install.sh | bash
+    # Make available in the current terminal
+    - export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+    - yarn install --frozen-lockfile
 
 # test:
 #   stage: test
@@ -25,36 +28,32 @@ setup:
 #   only:
 #     - master
 
-npmbuild:
+yarnbuild:
   stage: build
   script:
-    - npm run build
+    - yarn run build
   artifacts:
     paths:
       - dist
-  only:
-    - master
 
 dockerbuild:
   stage: build
   image:
     name: gcr.io/kaniko-project/executor:debug
-    entrypoint: [""]
+    entrypoint: ['']
   script:
     - echo "{\"auths\":{\"$CI_REGISTRY\":{\"username\":\"$CI_REGISTRY_USER\",\"password\":\"$CI_REGISTRY_PASSWORD\"}}}" > /kaniko/.docker/config.json
     - /kaniko/executor --context $CI_PROJECT_DIR --dockerfile $CI_PROJECT_DIR/Dockerfile --destination $CI_REGISTRY_IMAGE:$CI_COMMIT_TAG
-  only:
-    - master
 
 deploy-dev:
   stage: deploy
   script:
     - curl -sSL https://get.docker.com/ | sh
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-    - docker pull registry.git.rwth-aachen.de/fbuervenich/random-csv-generator
+    - docker pull registry.git.rwth-aachen.de/fbuervenich.de/random-csv-generator
     - docker stop randomcsv.dev.fbuervenich.de || true
     - docker rm randomcsv.dev.fbuervenich.de || true
-    - docker run -d -e VIRTUAL_HOST=randomcsv.dev.fbuervenich.de -e LETSENCRYPT_HOST=randomcsv.dev.fbuervenich.de -e LETSENCRYPT_EMAIL=florentin@fbuervenich.de --network=production_docker-network --name randomcsv.dev.fbuervenich.de registry.git.rwth-aachen.de/fbuervenich/random-csv-generator
+    - docker run -d -e VIRTUAL_HOST=randomcsv.dev.fbuervenich.de -e LETSENCRYPT_HOST=randomcsv.dev.fbuervenich.de -e LETSENCRYPT_EMAIL=florentin@fbuervenich.de --network=production_docker-network --name randomcsv.dev.fbuervenich.de registry.git.rwth-aachen.de/fbuervenich.de/random-csv-generator
   # dependencies:
   #   -build
   only:
