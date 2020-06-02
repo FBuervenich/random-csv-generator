@@ -24,7 +24,7 @@ export class CSVDownloader {
 
     let worker = new GeneratorWorker();
     worker.addEventListener('message', (event) => {
-      let data = event.data;
+      let data = JSON.parse(event.data);
 
       const includeHeader = store.getters['includeHeader'];
       if (includeHeader) {
@@ -41,6 +41,6 @@ export class CSVDownloader {
       console.error('Worker threw error: ', err);
     });
 
-    worker.postMessage({ job: 'defaultCSV', options });
+    worker.postMessage(JSON.stringify({ job: 'defaultCSV', options }));
   }
 }
