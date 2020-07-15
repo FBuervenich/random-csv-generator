@@ -1,4 +1,5 @@
 import { Util } from '@/features/util';
+import moment from 'moment';
 
 export class ColumnTypeRouter {
   static getClass(identifier) {
@@ -11,6 +12,8 @@ export class ColumnTypeRouter {
         return BooleanColumnType;
       case 'String':
         return StringColumnType;
+      case 'Date':
+        return DateColumnType;
       default:
         return BaseColumnType;
     }
@@ -160,5 +163,30 @@ export class StringColumnType extends BaseColumnType {
       ret.push(characters.charAt(Math.floor(Math.random() * length)));
     }
     return ret.join('');
+  }
+}
+
+export class DateColumnType extends BaseColumnType {
+  constructor(format = 'DD.MM.YYYY') {
+    super('Date');
+    this.format = format;
+  }
+
+  getDescription() {
+    return 'A date in a user-specified format';
+  }
+
+  getExamples() {
+    return ['20.04.2000', '19/04/20'];
+  }
+
+  get columnSettingsComponent() {
+    return 'DateColumnSettings';
+  }
+
+  getNextValue() {
+    const daysOffset = Math.random() * 365;
+    const ret = moment().subtract(daysOffset, 'days').format(this.format);
+    return ret;
   }
 }

@@ -30,6 +30,7 @@ import CsvColumnTypeSelector from '@/components/CsvColumnTypeSelector.vue';
 import NoColumnSettings from '@/components/CsvColumnSettings/NoColumnSettings.vue';
 import NumberColumnSettings from '@/components/CsvColumnSettings/NumberColumnSettings.vue';
 import StringColumnSettings from '@/components/CsvColumnSettings/StringColumnSettings.vue';
+import DateColumnSettings from '@/components/CsvColumnSettings/DateColumnSettings.vue';
 
 export default {
   components: {
@@ -37,6 +38,7 @@ export default {
     NoColumnSettings,
     NumberColumnSettings,
     StringColumnSettings,
+    DateColumnSettings,
   },
   data() {
     return {};
