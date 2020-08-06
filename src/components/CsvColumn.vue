@@ -1,13 +1,13 @@
 <template>
   <div>
     <v-row>
-      <v-col cols="4">
+      <v-col cols="8" md="4">
         <v-text-field v-model="columnName" label="Column name" outlined></v-text-field>
       </v-col>
-      <v-col cols="2">
+      <v-col cols="4" md="2">
         <CsvColumnTypeSelector :columnType="columnType" />
       </v-col>
-      <v-col cols="5">
+      <v-col cols="10" md="5">
         <Component
           v-bind:is="columnType.columnSettingsComponent"
           :uuid="this.columnType.uuid"
@@ -19,6 +19,7 @@
         </v-btn>
       </v-col>
     </v-row>
+    <v-divider class="mb-5" v-if="this.$vuetify.breakpoint.smAndDown"></v-divider>
   </div>
 </template>
 
