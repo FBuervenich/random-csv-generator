@@ -4,6 +4,10 @@ import GeneratorWorker from '@/features/webworkers/csv_generator.worker';
 export class CSVDownloader {
   constructor() {}
 
+  /**
+   * Downloads the specified content.
+   * @param {string} content
+   */
   downloadContent(content) {
     const link = document.createElement('a');
     link.href = content;
@@ -12,7 +16,11 @@ export class CSVDownloader {
     URL.revokeObjectURL(link.href);
   }
 
+  /**
+   * Generates random CSV-data and downloads it.
+   */
   generateAndDownload() {
+    store.commit('UPDATE_ISLOADING', true);
     const columns = store.getters['column/getColumns'];
 
     const options = {
@@ -36,6 +44,7 @@ export class CSVDownloader {
       // const uriContent = encodeURI(data);
 
       this.downloadContent(uriContent);
+      store.commit('UPDATE_ISLOADING', false);
     });
     worker.addEventListener('error', (err) => {
       console.error('Worker threw error: ', err);

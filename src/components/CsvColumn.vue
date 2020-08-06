@@ -1,9 +1,6 @@
 <template>
   <div>
     <v-row>
-      <!-- <v-col align="center">
-        <span>{{ this.columnType.name }}</span>
-      </v-col> -->
       <v-col cols="4">
         <v-text-field v-model="columnName" label="Column name" outlined></v-text-field>
       </v-col>
