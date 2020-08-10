@@ -11,7 +11,7 @@
         ></v-text-field>
       </v-col>
       <v-col>
-        <v-select label="Format" :items="fileTypes" outlined></v-select>
+        <v-select label="Format" v-model="selectedFileType" :items="fileTypes" outlined></v-select>
       </v-col>
       <v-col>
         <v-checkbox v-model="includeHeader" label="Include header"></v-checkbox>
@@ -27,6 +27,7 @@ export default {
   data() {
     return {
       fileTypes: ['.csv'],
+      selectedFileType: '.csv',
     };
   },
   computed: {
