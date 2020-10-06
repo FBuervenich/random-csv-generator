@@ -45,6 +45,7 @@ import {
   BlankColumnType,
   BooleanColumnType,
   StringColumnType,
+  DateColumnType,
 } from '@/features/column_type';
 
 export default {
@@ -57,6 +58,7 @@ export default {
         new BlankColumnType(),
         new BooleanColumnType(),
         new StringColumnType(),
+        new DateColumnType(),
       ],
     };
   },

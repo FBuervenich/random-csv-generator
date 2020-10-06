@@ -1,14 +1,16 @@
 <template>
   <v-container>
-    <transition-group name="list" tag="div">
-      <CsvColumn
-        v-for="columnType in column.columns"
-        :key="columnType.uuid"
-        :columnType="columnType"
-        @columnRemoved="removeColumn(columnType.uuid)"
-        @columnTypeChanged="updateColumnType($event)"
-      />
-    </transition-group>
+    <draggable v-model="column.columns" handle=".handle">
+      <transition-group name="list" tag="div">
+        <CsvColumn
+          v-for="columnType in column.columns"
+          :key="columnType.uuid"
+          :columnType="columnType"
+          @columnRemoved="removeColumn(columnType.uuid)"
+          @columnTypeChanged="updateColumnType($event)"
+        />
+      </transition-group>
+    </draggable>
     <v-btn @click="addDefaultColumn">Add Column</v-btn>
   </v-container>
 </template>
@@ -17,10 +19,12 @@
 import CsvColumn from '@/components/CsvColumn.vue';
 import { NumberColumnType } from '@/features/column_type';
 import { mapState, mapActions } from 'vuex';
+import draggable from 'vuedraggable';
 
 export default {
   components: {
     CsvColumn,
+    draggable,
   },
   data() {
     return {};

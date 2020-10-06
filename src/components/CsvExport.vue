@@ -1,7 +1,9 @@
 <template>
-  <div>
-    <v-btn @click="initGeneration" color="success">Export</v-btn>
-    <!-- <a ref="startDownload" download="export.csv" :href="uri" class="hidden">test</a> -->
+  <div class="d-flex">
+    <v-btn :disabled="isLoading" @click="initGeneration" color="success">Export</v-btn>
+    <div v-if="isLoading" class="text-center mx-10">
+      <v-progress-circular indeterminate color="primary"></v-progress-circular>
+    </div>
   </div>
 </template>
 
@@ -15,7 +17,9 @@ export default {
     };
   },
   computed: {
-    ...mapState(['column']),
+    ...mapState({
+      isLoading: (state) => state.appState.isLoading,
+    }),
   },
   methods: {
     initGeneration() {

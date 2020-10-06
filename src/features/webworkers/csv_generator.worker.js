@@ -1,10 +1,10 @@
 import { ColumnTypeRouter } from '@/features/column_type';
 
 onmessage = function (e) {
-  const { job, options } = e.data;
+  const { job, options } = JSON.parse(e.data);
   const result = doWork(job, options);
 
-  postMessage(result);
+  postMessage(JSON.stringify(result));
 };
 
 function doWork(job, options) {
